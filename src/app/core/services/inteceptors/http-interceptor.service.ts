@@ -11,7 +11,19 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loader.start();
-    return next.handle(req).pipe(finalize(() => this._loader.complete()));
+
+    const token = sessionStorage.token; 
+
+    // un solo return 
+    if (!token) {
+      return next.handle(req).pipe(finalize(() => this._loader.complete()));
+    }
+
+    const req1 = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`),
+    });
+
+    return next.handle(req1).pipe(finalize(() => this._loader.complete()));   
   }
 
 }

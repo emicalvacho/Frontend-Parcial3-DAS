@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6 border p-3">
+            <h2>Login</h2>
+            <form action="post" [formGroup]="loginForm" method="post" novalidate (ngSubmit)="login()">
+                <input type="email" class="form-control" id="icorreo" formControlName="correo"
+                    placeholder="Ingresa su correo" maxlength="255">
+                <small *ngIf="submitted && form.correo.errors" class="text-danger">
+                    <span *ngIf="form.correo.errors.required">Debes informar tu correo</span>
+                    <span *ngIf="form.correo.errors.email || form.correo.errors.pattern">El correo no es válido</span>
+                </small>
+                <input type="password" class="form-control mt-2" id="iclave" formControlName="clave"
+                    placeholder="Ingresa su clave" maxlength="32">
+                <small *ngIf="submitted && form.clave.errors" class="text-danger">
+                    <span *ngIf="form.clave.errors.required">Debes informar su clave</span>
+                </small>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
